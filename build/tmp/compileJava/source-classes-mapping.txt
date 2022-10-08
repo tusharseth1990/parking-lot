@@ -1,0 +1,16 @@
+DTO/VehicleType.java
+ DTO.VehicleType
+DTO/ParkingFee.java
+ DTO.ParkingFee
+service/ParkingSpot.java
+ service.ParkingSpot
+service/ParkingTicket.java
+ service.ParkingTicket
+service/Vehicle.java
+ service.Vehicle
+DTO/ParkingSpotTypeSize.java
+ DTO.ParkingSpotTypeSize
+DTO/Receipt.java
+ DTO.Receipt
+DTO/ParkingLocation.java
+ DTO.ParkingLocation
