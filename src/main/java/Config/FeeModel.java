@@ -48,7 +48,7 @@ public class FeeModel {
         return parkingFeeList;
     }
 
-    private List<ParkingFee> CarInAirportFee() {
+    public List<ParkingFee> CarInAirportFee() {
         List<ParkingFee> carInAirportParkingFeeList = new ArrayList<>();
         Integer AirportCarFeeONE = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_ONE_PRICE"));
         Integer AirportCarMININTONE = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_ONE_PRICE.MIN_INTERVAL"));
@@ -68,7 +68,7 @@ public class FeeModel {
         return carInAirportParkingFeeList;
     }
 
-    private List<ParkingFee> BikeInAirportFee() {
+    public List<ParkingFee> BikeInAirportFee() {
         List<ParkingFee> bikeInAirportParkingFee = new ArrayList<>();
         Integer AirportBikeFeeONE = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_ONE_PRICE"));
         Integer AirportBikeMININTONE = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_ONE_PRICE.MIN_INTERVAL"));
@@ -94,7 +94,7 @@ public class FeeModel {
         return bikeInAirportParkingFee;
     }
 
-    private List<ParkingFee> CarInStadiumFee() {
+    public List<ParkingFee> CarInStadiumFee() {
         List<ParkingFee> carInStadiumParkingFee = new ArrayList<>();
         Integer StadiumCarFeeONE = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_ONE_PRICE"));
         Integer StadiumCarMININTONE = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_ONE_PRICE.MIN_INTERVAL"));
@@ -116,7 +116,7 @@ public class FeeModel {
         return carInStadiumParkingFee;
     }
 
-    private List<ParkingFee> BikeInStadiumFee() {
+    public List<ParkingFee> BikeInStadiumFee() {
         List<ParkingFee> bikeInStadiumParkingFeeList = new ArrayList<>();
         Integer StadiumBikeFeeONE = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_ONE_PRICE"));
         Integer StadiumBikeMININTONE = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_ONE_PRICE.MIN_INTERVAL"));

@@ -30,11 +30,6 @@ public class ParkingLot {
     private Integer ticketSequenceGenerator = 0;
     private Integer receiptSequenceGenerator = 0;
 
-
-    public ParkingLot() throws IOException {
-    }
-
-
     public ParkingTicket parkVehicle(Vehicle vehicle, ParkingLocation parkingLocation) {
         //if spot available for particular vehicle type then
         //assign parking spot &
@@ -43,18 +38,20 @@ public class ParkingLot {
         Boolean available = checkParkingSpotAvailability(vehicle.getVehicleType());
         if (available) {
             switch (vehicle.getVehicleType()) {
-                case BIKE -> parkingTicket = getParkingTicket(vehicle, parkingTicket, parkedSpotsBike, parkingLocation);
-                case CAR -> parkingTicket = getParkingTicket(vehicle, parkingTicket, parkedSpotsCar, parkingLocation);
-                case TRUCK -> parkingTicket = getParkingTicket(vehicle, parkingTicket, parkedSpotsTruck, parkingLocation);
+                case BIKE -> parkingTicket = getParkingTicket(vehicle, parkedSpotsBike, parkingLocation);
+                case CAR -> parkingTicket = getParkingTicket(vehicle,  parkedSpotsCar, parkingLocation);
+                case TRUCK -> parkingTicket = getParkingTicket(vehicle,  parkedSpotsTruck, parkingLocation);
             }
         }
         return parkingTicket;
     }
 
-    private ParkingTicket getParkingTicket(Vehicle vehicle, ParkingTicket parkingTicket, boolean[] parkedSpots, ParkingLocation parkingLocation) {
+    private ParkingTicket getParkingTicket(Vehicle vehicle, boolean[] parkedSpots, ParkingLocation parkingLocation) {
+        ParkingTicket parkingTicket = null;
         for (int i = 0; i < parkedSpots.length; i++) {
             if (parkedSpots[i] == Boolean.FALSE) {
                 ParkingSpot parkingSpot = new ParkingSpot(vehicle, vehicle.getVehicleType(), i, true);
+                parkedSpots[i] = true;
                 parkingTicket = new ParkingTicket(ticketSequenceGenerator++,
                         new Timestamp(System.currentTimeMillis()), parkingSpot, parkingLocation);
                 parkingSpots.add(parkingSpot);
@@ -64,14 +61,20 @@ public class ParkingLot {
     }
 
     private Boolean checkParkingSpotAvailability(VehicleType vehicleType) {
-        return vehicleType.equals(VehicleType.BIKE) && parkedSpotsBike.length < bikeLimit
-                || vehicleType.equals(VehicleType.CAR) && parkedSpotsCar.length < carLimit
-                || vehicleType.equals(VehicleType.TRUCK) && parkedSpotsTruck.length < truckLimit;
+        return (vehicleType.equals(VehicleType.BIKE) && parkedSpotsBike.length < bikeLimit)
+                || (vehicleType.equals(VehicleType.CAR) && parkedSpotsCar.length < carLimit)
+                || (vehicleType.equals(VehicleType.TRUCK) && parkedSpotsTruck.length < truckLimit);
     }
 
-    public ParkingReceipt unParkVehicle(ParkingTicket parkingTicket) {
+    public ParkingReceipt unParkVehicle(ParkingTicket parkingTicket) throws IOException {
         //leave the parking slot
         parkingSpots.remove(parkingTicket.getParkingSpot());
+        VehicleType vehicleType = parkingTicket.getParkingSpot().getVehicleType();
+        switch (vehicleType) {
+            case BIKE -> parkedSpotsBike[parkingTicket.getParkingSpot().getSpotId()] = false;
+            case CAR ->   parkedSpotsCar[parkingTicket.getParkingSpot().getSpotId()] = false;
+            case TRUCK ->  parkedSpotsTruck[parkingTicket.getParkingSpot().getSpotId()] = false;
+        }
 
         // Calculate fees
         ParkingReceipt parkingReceipt = new ParkingReceipt();

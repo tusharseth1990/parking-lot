@@ -2,7 +2,6 @@ package Config;
 
 import enums.VehicleType;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
@@ -17,15 +16,11 @@ public class VehicleCapacity {
     }
 
     public Integer getVehicleCapacity(VehicleType vehicleType)  {
-        switch (vehicleType) {
-            case BIKE:
-                return Integer.valueOf(p.getProperty("BIKE"));
-            case CAR:
-                return Integer.valueOf(p.getProperty("CAR"));
-            case TRUCK:
-                return Integer.valueOf(p.getProperty("TRUCK"));
-        }
-        return null;
+        return switch (vehicleType) {
+            case BIKE -> Integer.valueOf(p.getProperty("BIKE"));
+            case CAR -> Integer.valueOf(p.getProperty("CAR"));
+            case TRUCK -> Integer.valueOf(p.getProperty("TRUCK"));
+        };
     }
 
 }

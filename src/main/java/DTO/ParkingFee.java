@@ -16,5 +16,19 @@ public class ParkingFee {
         this.maxInterval = maxInterval;
     }
 
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
 
+    public Integer getFee() {
+        return fee;
+    }
+
+    public Integer getMinInterval() {
+        return minInterval;
+    }
+
+    public Integer getMaxInterval() {
+        return maxInterval;
+    }
 }
