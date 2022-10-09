@@ -1,5 +1,8 @@
 package DTO;
 
+import enums.ParkingLocation;
+import enums.VehicleType;
+
 import java.sql.Timestamp;
 
 public class ParkingReceipt {
@@ -60,7 +63,14 @@ public class ParkingReceipt {
         this.fees = fees;
     }
 
-    private Double calcParkingFees(){
+    public Double calcParkingFees(ParkingTicket parkingTicket) {
+        ParkingSpot parkingSpot = parkingTicket.getParkingSpot();
+        VehicleType vehicleType = parkingSpot.getVehicleType();
+        ParkingLocation parkingLocation = parkingTicket.getParkingLocation();
+        Timestamp entryDateTime = parkingTicket.getEntryDateTime();
+        Timestamp exitDateTime = new Timestamp(System.currentTimeMillis());
+
+
         return 0.0;
     }
 

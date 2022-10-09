@@ -70,15 +70,12 @@ public class ParkingLot {
     }
 
     public ParkingReceipt unParkVehicle(ParkingTicket parkingTicket) {
-        //leave the parking slot i.e. make Fill = false
+        //leave the parking slot
         parkingSpots.remove(parkingTicket.getParkingSpot());
-//        ParkingSpot parkingSpot = parkingTicket.getParkingSpot();
-//        parkingSpot.setVehicle(null);
-//        parkingSpot.setFILLED(false);
 
         // Calculate fees
         ParkingReceipt parkingReceipt = new ParkingReceipt();
-        Double fees = parkingReceipt.getFees();
+        Double fees = parkingReceipt.calcParkingFees(parkingTicket);
         parkingReceipt.setParkingTicket(parkingTicket);
         parkingReceipt.setReceiptNumber(receiptSequenceGenerator++);
         parkingReceipt.setExitDateTime( new Timestamp(System.currentTimeMillis()));
