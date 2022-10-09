@@ -1,12 +1,13 @@
 package DTO;
 
 import enums.ParkingLocation;
+import lombok.Data;
 
 import java.sql.Timestamp;
-
+@Data
 public class ParkingTicket {
     private Integer ticketNumber;
-    private final Timestamp entryDateTime;
+    private Timestamp entryDateTime;
     private ParkingSpot parkingSpot;
     private ParkingLocation parkingLocation;
 
@@ -25,31 +26,4 @@ public class ParkingTicket {
              ", Entry Date-time:" + entryDateTime ;
     }
 
-    public void setTicketNumber(Integer ticketNumber) {
-        this.ticketNumber = ticketNumber;
-    }
-
-    public ParkingLocation getParkingLocation() {
-        return parkingLocation;
-    }
-
-    public void setParkingLocation(ParkingLocation parkingLocation) {
-        this.parkingLocation = parkingLocation;
-    }
-
-    public Integer getTicketNumber() {
-        return ticketNumber;
-    }
-
-    public Timestamp getEntryDateTime() {
-        return entryDateTime;
-    }
-
-    public ParkingSpot getParkingSpot() {
-        return parkingSpot;
-    }
-
-    public void setParkingSpot(ParkingSpot parkingSpot) {
-        this.parkingSpot = parkingSpot;
-    }
 }

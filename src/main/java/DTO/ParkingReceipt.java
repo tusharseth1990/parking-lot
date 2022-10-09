@@ -2,6 +2,7 @@ package DTO;
 
 import enums.ParkingLocation;
 import enums.VehicleType;
+import lombok.Data;
 import util.ParkingLotUtils;
 
 import java.io.FileReader;
@@ -9,12 +10,14 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Properties;
 
+@Data
 public class ParkingReceipt {
     private Integer receiptNumber;
     private ParkingTicket parkingTicket;
     private Timestamp exitDateTime;
     private Double fees;
     Properties p = new Properties();
+    FileReader reader = new FileReader("feemodels.properties");
 
     @Override
     public String toString() {
@@ -28,44 +31,8 @@ public class ParkingReceipt {
 
 
     public ParkingReceipt() throws IOException {
-
-
-        FileReader reader = new FileReader("feemodels.properties");
         p.load(reader);
     }
-
-    public Integer getReceiptNumber() {
-        return receiptNumber;
-    }
-
-    public void setReceiptNumber(Integer receiptNumber) {
-        this.receiptNumber = receiptNumber;
-    }
-
-    public ParkingTicket getParkingTicket() {
-        return parkingTicket;
-    }
-
-    public void setParkingTicket(ParkingTicket parkingTicket) {
-        this.parkingTicket = parkingTicket;
-    }
-
-    public Timestamp getExitDateTime() {
-        return exitDateTime;
-    }
-
-    public void setExitDateTime(Timestamp exitDateTime) {
-        this.exitDateTime = exitDateTime;
-    }
-
-    public Double getFees() {
-        return fees;
-    }
-
-    public void setFees(Double fees) {
-        this.fees = fees;
-    }
-
 
     public Double calcParkingFees(ParkingTicket parkingTicket) {
         VehicleType vehicleType = parkingTicket.getParkingSpot().getVehicleType();
@@ -153,7 +120,7 @@ public class ParkingReceipt {
                     amount = Integer.parseInt(p.getProperty("AIRPORT.CAR.INTERVAL_TWO_PRICE"));
 
                 }
-                if(differenceInHour >= Integer.parseInt(p.getProperty("AIRPORT.CAR.INTERVAL_TWO_PRICE.MAX_INTERVAL"))){
+                if (differenceInHour >= Integer.parseInt(p.getProperty("AIRPORT.CAR.INTERVAL_TWO_PRICE.MAX_INTERVAL"))) {
                     amount = Integer.parseInt(p.getProperty("AIRPORT.CAR.INTERVAL_PER_DAY")) * Math.ceil(differenceInHour / 24);
                 }
                 return amount;
