@@ -3,6 +3,9 @@ package DTO;
 import enums.VehicleType;
 import lombok.Data;
 
+/**
+ * ParkingFee model class
+ */
 @Data
 public class ParkingFee {
 

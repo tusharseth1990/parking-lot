@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Properties;
 
+/**
+ * ParkingReceipt DTO/Model class
+ */
 @Data
 public class ParkingReceipt {
     private Integer receiptNumber;

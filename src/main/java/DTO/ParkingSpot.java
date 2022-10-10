@@ -3,6 +3,10 @@ package DTO;
 import enums.VehicleType;
 import lombok.Data;
 
+/**
+ * ParkingSpot DTO/Model class
+ */
+
 @Data
 public class ParkingSpot {
 

@@ -1,7 +1,15 @@
 package util;
 
+/**
+ * ParkingLotUtils a utility class
+ */
 public class ParkingLotUtils {
-
+    /**
+     * Basically used for Comparing two timestamps
+     * @param currentTime
+     * @param oldTime
+     * @return
+     */
     public static double compareTwoTimeStamps(java.sql.Timestamp currentTime, java.sql.Timestamp oldTime)
     {
         double milliseconds1 = oldTime.getTime();

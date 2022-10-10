@@ -2,8 +2,11 @@ package DTO;
 
 import enums.ParkingLocation;
 import lombok.Data;
-
 import java.sql.Timestamp;
+
+/**
+ * ParkingTicket DTO/Model class
+ */
 @Data
 public class ParkingTicket {
     private Integer ticketNumber;

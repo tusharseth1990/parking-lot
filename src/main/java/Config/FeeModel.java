@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * FeeModel: Config class
+ */
+//TODO delete this file
 public class FeeModel {
     FileReader reader;
     Properties p = new Properties();

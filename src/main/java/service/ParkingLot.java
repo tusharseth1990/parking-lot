@@ -13,6 +13,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+/**
+ * ParkingLot class for parking & un-park vehicle
+ */
 public class ParkingLot {
 
     private VehicleCapacity vehicleCapacity;
@@ -30,6 +35,12 @@ public class ParkingLot {
     private Integer ticketSequenceGenerator = 0;
     private Integer receiptSequenceGenerator = 0;
 
+    /**
+     * To Park the Vehicle in particular Parking Location.
+     * @param vehicle vehicle details
+     * @param parkingLocation parkingLocation details
+     * @return parkingTicket parking Ticket Details
+     */
     public ParkingTicket parkVehicle(Vehicle vehicle, ParkingLocation parkingLocation) {
         //if spot available for particular vehicle type then
         //assign parking spot &
@@ -66,6 +77,11 @@ public class ParkingLot {
                 || (vehicleType.equals(VehicleType.TRUCK) && parkedSpotsTruck.length < truckLimit);
     }
 
+    /**
+     * To Un-Park the Vehicle in particular Parking Location.
+     * @param parkingTicket parkingTicket details
+     * @return ParkingReceipt parking Receipt Details
+     */
     public ParkingReceipt unParkVehicle(ParkingTicket parkingTicket) throws IOException {
         //leave the parking slot
         parkingSpots.remove(parkingTicket.getParkingSpot());

@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * VehicleCapacity config class to read vehiclecapacity.properties
+ */
 public class VehicleCapacity {
     FileReader reader;
     Properties p = new Properties();
@@ -15,7 +18,7 @@ public class VehicleCapacity {
         p.load(reader);
     }
 
-    public Integer getVehicleCapacity(VehicleType vehicleType)  {
+    public Integer getVehicleCapacity(VehicleType vehicleType) {
         return switch (vehicleType) {
             case BIKE -> Integer.valueOf(p.getProperty("BIKE"));
             case CAR -> Integer.valueOf(p.getProperty("CAR"));
