@@ -8,6 +8,11 @@ import lombok.Data;
  */
 @Data
 public class Vehicle {
-    private final VehicleType vehicleType;
-    private final String vehicleNumber;
+    private VehicleType vehicleType;
+    private  String vehicleNumber;
+
+    public Vehicle(VehicleType vehicleType, String vehicleNumber) {
+        this.vehicleType = vehicleType;
+        this.vehicleNumber = vehicleNumber;
+    }
 }

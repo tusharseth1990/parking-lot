@@ -1,7 +1,7 @@
 package Config;
 
-import enums.VehicleType;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
@@ -9,21 +9,28 @@ import java.util.Properties;
 /**
  * VehicleCapacity config class to read vehiclecapacity.properties
  */
-public class VehicleCapacity {
-    FileReader reader;
-    Properties p = new Properties();
+public  class VehicleCapacity {
 
-    public VehicleCapacity() throws IOException {
-        reader = new FileReader("vehiclecapacity.properties");
-        p.load(reader);
-    }
+    public static Integer BIKE;
+    public static Integer CAR;
+    public static Integer TRUCK;
 
-    public Integer getVehicleCapacity(VehicleType vehicleType) {
-        return switch (vehicleType) {
-            case BIKE -> Integer.valueOf(p.getProperty("BIKE"));
-            case CAR -> Integer.valueOf(p.getProperty("CAR"));
-            case TRUCK -> Integer.valueOf(p.getProperty("TRUCK"));
-        };
+    static {
+        Properties p = new Properties();
+        FileReader reader = null;
+        try {
+            reader = new FileReader("src/main/resources/vehiclecapacity.properties");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            p.load(reader);
+            BIKE = Integer.valueOf(p.getProperty("BIKE"));
+            CAR = Integer.valueOf(p.getProperty("CAR"));
+            TRUCK = Integer.valueOf(p.getProperty("TRUCK"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

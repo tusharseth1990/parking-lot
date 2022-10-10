@@ -14,30 +14,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
  * ParkingLot class for parking & un-park vehicle
  */
 public class ParkingLot {
 
-    private VehicleCapacity vehicleCapacity;
+    static List<ParkingSpot> parkingSpots = new ArrayList<>();
 
-    List<ParkingSpot> parkingSpots = new ArrayList<>();
+    private static final Integer bikeLimit = VehicleCapacity.BIKE;
+    private static final Integer carLimit = VehicleCapacity.CAR;
+    private static final Integer truckLimit = VehicleCapacity.TRUCK;
 
-    private Integer bikeLimit = vehicleCapacity.getVehicleCapacity(VehicleType.BIKE);
-    private Integer carLimit = vehicleCapacity.getVehicleCapacity(VehicleType.CAR);
-    private Integer truckLimit = vehicleCapacity.getVehicleCapacity(VehicleType.TRUCK);
+    static boolean[] parkedSpotsBike = new boolean[bikeLimit];
+    static boolean[] parkedSpotsCar = new boolean[carLimit];
+    static boolean[] parkedSpotsTruck = new boolean[truckLimit];
 
-    boolean[] parkedSpotsBike = new boolean[bikeLimit];
-    boolean[] parkedSpotsCar = new boolean[carLimit];
-    boolean[] parkedSpotsTruck = new boolean[truckLimit];
-
-    private Integer ticketSequenceGenerator = 0;
-    private Integer receiptSequenceGenerator = 0;
+    private static Integer ticketSequenceGenerator = 0;
+    private static Integer receiptSequenceGenerator = 0;
 
     /**
      * To Park the Vehicle in particular Parking Location.
-     * @param vehicle vehicle details
+     *
+     * @param vehicle   vehicle details
      * @param parkingLocation parkingLocation details
      * @return parkingTicket parking Ticket Details
      */
@@ -50,8 +48,8 @@ public class ParkingLot {
         if (available) {
             switch (vehicle.getVehicleType()) {
                 case BIKE -> parkingTicket = getParkingTicket(vehicle, parkedSpotsBike, parkingLocation);
-                case CAR -> parkingTicket = getParkingTicket(vehicle,  parkedSpotsCar, parkingLocation);
-                case TRUCK -> parkingTicket = getParkingTicket(vehicle,  parkedSpotsTruck, parkingLocation);
+                case CAR -> parkingTicket = getParkingTicket(vehicle, parkedSpotsCar, parkingLocation);
+                case TRUCK -> parkingTicket = getParkingTicket(vehicle, parkedSpotsTruck, parkingLocation);
             }
         }
         return parkingTicket;
@@ -66,19 +64,39 @@ public class ParkingLot {
                 parkingTicket = new ParkingTicket(ticketSequenceGenerator++,
                         new Timestamp(System.currentTimeMillis()), parkingSpot, parkingLocation);
                 parkingSpots.add(parkingSpot);
+                break;
             }
         }
         return parkingTicket;
     }
 
     private Boolean checkParkingSpotAvailability(VehicleType vehicleType) {
-        return (vehicleType.equals(VehicleType.BIKE) && parkedSpotsBike.length < bikeLimit)
-                || (vehicleType.equals(VehicleType.CAR) && parkedSpotsCar.length < carLimit)
-                || (vehicleType.equals(VehicleType.TRUCK) && parkedSpotsTruck.length < truckLimit);
+        if (vehicleType.equals(VehicleType.BIKE)) {
+            for (boolean b : parkedSpotsBike) {
+                if (!b)
+                    return true;
+            }
+        }
+
+        if (vehicleType.equals(VehicleType.CAR)) {
+            for (boolean b : parkedSpotsBike) {
+                if (!b)
+                    return true;
+            }
+        }
+
+        if (vehicleType.equals(VehicleType.TRUCK)) {
+            for (boolean b : parkedSpotsBike) {
+                if (!b)
+                    return true;
+            }
+        }
+        return false;
     }
 
     /**
      * To Un-Park the Vehicle in particular Parking Location.
+     *
      * @param parkingTicket parkingTicket details
      * @return ParkingReceipt parking Receipt Details
      */
@@ -88,8 +106,8 @@ public class ParkingLot {
         VehicleType vehicleType = parkingTicket.getParkingSpot().getVehicleType();
         switch (vehicleType) {
             case BIKE -> parkedSpotsBike[parkingTicket.getParkingSpot().getSpotId()] = false;
-            case CAR ->   parkedSpotsCar[parkingTicket.getParkingSpot().getSpotId()] = false;
-            case TRUCK ->  parkedSpotsTruck[parkingTicket.getParkingSpot().getSpotId()] = false;
+            case CAR -> parkedSpotsCar[parkingTicket.getParkingSpot().getSpotId()] = false;
+            case TRUCK -> parkedSpotsTruck[parkingTicket.getParkingSpot().getSpotId()] = false;
         }
 
         // Calculate fees
@@ -97,7 +115,7 @@ public class ParkingLot {
         Double fees = parkingReceipt.calcParkingFees(parkingTicket);
         parkingReceipt.setParkingTicket(parkingTicket);
         parkingReceipt.setReceiptNumber(receiptSequenceGenerator++);
-        parkingReceipt.setExitDateTime( new Timestamp(System.currentTimeMillis()));
+        parkingReceipt.setExitDateTime(new Timestamp(System.currentTimeMillis()));
         parkingReceipt.setFees(fees);
         //Receipt to be generated
         return parkingReceipt;

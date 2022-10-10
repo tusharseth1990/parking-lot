@@ -1,144 +1,112 @@
 package Config;
 
-import DTO.ParkingFee;
-import enums.VehicleType;
-
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
-
 /**
  * FeeModel: Config class
  */
-//TODO delete this file
 public class FeeModel {
-    FileReader reader;
-    Properties p = new Properties();
 
-    public FeeModel() throws IOException {
-        reader = new FileReader("feemodels.properties");
-        p.load(reader);
+    public static Integer MallBikeFee;
+    public static Integer MallCarFee;
+    public static Integer MallTruckFee;
+
+    public static Integer AirportCarFeeONE;
+    public static Integer AirportCarMININTONE;
+    public static Integer AirportCarMAXINTONE;
+    public static Integer AirportCarFeeTwo;
+    public static Integer AirportCarMININTTWO;
+    public static Integer AirportCarMAXINTTWO;
+    public static Integer AirportCarFeePerDay;
+    public static Integer AirportBikeFeeONE;
+    public static Integer AirportBikeMININTONE;
+    public static Integer AirportBikeMAXINTONE;
+    public static Integer AirportBikeFeeTwo;
+    public static Integer AirportBikeMININTTWO;
+    public static Integer AirportBikeMAXINTTWO;
+    public static Integer AirportBikeFeeThree;
+    public static Integer AirportBikeMININTThree;
+    public static Integer AirportBikeMAXINTThree;
+    public static Integer AirportBikeFeePerDay;
+
+    public static Integer StadiumCarFeeONE;
+    public static Integer StadiumCarMININTONE;
+    public static Integer StadiumCarMAXINTONE;
+    public static Integer StadiumCarFeeTwo;
+    public static Integer StadiumCarMININTTWO;
+    public static Integer StadiumCarMAXINTTWO;
+    public static Integer StadiumCarFeeThree;
+    public static Integer StadiumCarMININTThree;
+    public static Integer StadiumCarMAXINTThree;
+    public static Integer StadiumBikeFeeONE;
+    public static Integer StadiumBikeMININTONE;
+    public static Integer StadiumBikeMAXINTONE;
+    public static Integer StadiumBikeFeeTwo;
+    public static Integer StadiumBikeMININTTWO;
+    public static Integer StadiumBikeMAXINTTWO;
+    public static Integer StadiumBikeFeeThree;
+    public static Integer StadiumBikeMININTThree;
+    public static Integer StadiumBikeMAXINTThree;
+
+    static {
+        Properties p = new Properties();
+        FileReader reader = null;
+        try {
+            reader = new FileReader("src/main/resources/feemodels.properties");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            p.load(reader);
+            MallBikeFee = Integer.valueOf(p.getProperty("MALL.BIKE"));
+            MallCarFee = Integer.valueOf(p.getProperty("MALL.CAR"));
+            MallTruckFee = Integer.valueOf(p.getProperty("MALL.TRUCK"));
+
+            AirportCarFeeONE = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_ONE_PRICE"));
+            AirportCarMININTONE = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_ONE_PRICE.MIN_INTERVAL"));
+            AirportCarMAXINTONE = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_ONE_PRICE.MAX_INTERVAL"));
+            AirportCarFeeTwo = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_TWO_PRICE"));
+            AirportCarMININTTWO = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_TWO_PRICE.MIN_INTERVAL"));
+            AirportCarMAXINTTWO = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_TWO_PRICE.MAX_INTERVAL"));
+            AirportCarFeeTwo = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_TWO_PRICE"));
+            AirportCarFeePerDay = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_PER_DAY"));
+            AirportBikeFeeONE = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_ONE_PRICE"));
+            AirportBikeMININTONE = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_ONE_PRICE.MIN_INTERVAL"));
+            AirportBikeMAXINTONE = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_ONE_PRICE.MAX_INTERVAL"));
+            AirportBikeMAXINTONE = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_ONE_PRICE.MAX_INTERVAL"));
+            AirportBikeFeeTwo = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_TWO_PRICE"));
+            AirportBikeMININTTWO = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_TWO_PRICE.MIN_INTERVAL"));
+            AirportBikeMAXINTTWO = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_TWO_PRICE.MAX_INTERVAL"));
+            AirportBikeFeeThree = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_THREE_PRICE"));
+            AirportBikeMININTThree = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_THREE_PRICE.MIN_INTERVAL"));
+            AirportBikeMAXINTThree = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_THREE_PRICE.MAX_INTERVAL"));
+            AirportBikeFeePerDay = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_PER_DAY"));
+
+            StadiumCarFeeONE = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_ONE_PRICE"));
+            StadiumCarMININTONE = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_ONE_PRICE.MIN_INTERVAL"));
+            StadiumCarMAXINTONE = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_ONE_PRICE.MAX_INTERVAL"));
+            StadiumCarFeeTwo = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_TWO_PRICE"));
+            StadiumCarMININTTWO = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_TWO_PRICE.MIN_INTERVAL"));
+            StadiumCarMAXINTTWO = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_TWO_PRICE.MAX_INTERVAL"));
+            StadiumCarFeeThree = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_THREE_PRICE"));
+            StadiumCarMININTThree = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_THREE_PRICE.MIN_INTERVAL"));
+//            StadiumCarMAXINTThree = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_THREE_PRICE.MAX_INTERVAL"));
+            StadiumBikeFeeONE = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_ONE_PRICE"));
+            StadiumBikeMININTONE = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_ONE_PRICE.MIN_INTERVAL"));
+            StadiumBikeMAXINTONE = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_ONE_PRICE.MAX_INTERVAL"));
+            StadiumBikeFeeTwo = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_TWO_PRICE"));
+            StadiumBikeMININTTWO = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_TWO_PRICE.MIN_INTERVAL"));
+            StadiumBikeMAXINTTWO = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_TWO_PRICE.MAX_INTERVAL"));
+            StadiumBikeFeeThree = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_THREE_PRICE"));
+            StadiumBikeMININTThree = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_THREE_PRICE.MIN_INTERVAL"));
+//            StadiumBikeMAXINTThree = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_THREE_PRICE.MAX_INTERVAL"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public List<ParkingFee> getMallFeeModel() {
-        List<ParkingFee> mallParkingFeeList = new ArrayList<>();
-        Integer MallBikeFee = Integer.valueOf(p.getProperty("MALL.BIKE"));
-        ParkingFee parkingFeeBike = new ParkingFee(VehicleType.BIKE, MallBikeFee, null, null);
-        mallParkingFeeList.add(parkingFeeBike);
 
-        Integer MallCarFee = Integer.valueOf(p.getProperty("MALL.CAR"));
-        ParkingFee parkingFeeCar = new ParkingFee(VehicleType.CAR, MallCarFee, null, null);
-        mallParkingFeeList.add(parkingFeeCar);
-
-        Integer MallTruckFee = Integer.valueOf(p.getProperty("MALL.TRUCK"));
-        ParkingFee parkingFeeTruck = new ParkingFee(VehicleType.TRUCK, MallTruckFee, null, null);
-        mallParkingFeeList.add(parkingFeeTruck);
-        return mallParkingFeeList;
-    }
-
-    public List<ParkingFee> getStadiumFeeModel() {
-        List<ParkingFee> parkingFeeList = new ArrayList<>();
-        parkingFeeList.addAll(BikeInStadiumFee());
-        parkingFeeList.addAll(CarInStadiumFee());
-        return parkingFeeList;
-    }
-
-    public List<ParkingFee> getAirportFeeModel() {
-        List<ParkingFee> parkingFeeList = new ArrayList<>();
-        parkingFeeList.addAll(BikeInAirportFee());
-        parkingFeeList.addAll(CarInAirportFee());
-        return parkingFeeList;
-    }
-
-    public List<ParkingFee> CarInAirportFee() {
-        List<ParkingFee> carInAirportParkingFeeList = new ArrayList<>();
-        Integer AirportCarFeeONE = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_ONE_PRICE"));
-        Integer AirportCarMININTONE = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_ONE_PRICE.MIN_INTERVAL"));
-        Integer AirportCarMAXINTONE = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_ONE_PRICE.MAX_INTERVAL"));
-        ParkingFee parkingFeeAirportCarOne = new ParkingFee(VehicleType.CAR, AirportCarFeeONE, AirportCarMININTONE, AirportCarMAXINTONE);
-        carInAirportParkingFeeList.add(parkingFeeAirportCarOne);
-
-        Integer AirportCarFeeTwo = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_TWO_PRICE"));
-        Integer AirportCarMININTTWO = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_TWO_PRICE.MIN_INTERVAL"));
-        Integer AirportCarMAXINTTWO = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_TWO_PRICE.MAX_INTERVAL"));
-        ParkingFee parkingFeeAirportCarTwo = new ParkingFee(VehicleType.CAR, AirportCarFeeTwo, AirportCarMININTTWO, AirportCarMAXINTTWO);
-        carInAirportParkingFeeList.add(parkingFeeAirportCarTwo);
-
-        Integer AirportCarFeePerDay = Integer.valueOf(p.getProperty("AIRPORT.CAR.INTERVAL_PER_DAY"));
-        ParkingFee parkingFeeAirportCarPerDay = new ParkingFee(VehicleType.CAR, AirportCarFeePerDay, null, null);
-        carInAirportParkingFeeList.add(parkingFeeAirportCarPerDay);
-        return carInAirportParkingFeeList;
-    }
-
-    public List<ParkingFee> BikeInAirportFee() {
-        List<ParkingFee> bikeInAirportParkingFee = new ArrayList<>();
-        Integer AirportBikeFeeONE = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_ONE_PRICE"));
-        Integer AirportBikeMININTONE = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_ONE_PRICE.MIN_INTERVAL"));
-        Integer AirportBikeMAXINTONE = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_ONE_PRICE.MAX_INTERVAL"));
-        ParkingFee parkingFeeAirportBikeOne = new ParkingFee(VehicleType.BIKE, AirportBikeFeeONE, AirportBikeMININTONE, AirportBikeMAXINTONE);
-        bikeInAirportParkingFee.add(parkingFeeAirportBikeOne);
-
-        Integer AirportBikeFeeTwo = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_TWO_PRICE"));
-        Integer AirportBikeMININTTWO = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_TWO_PRICE.MIN_INTERVAL"));
-        Integer AirportBikeMAXINTTWO = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_TWO_PRICE.MAX_INTERVAL"));
-        ParkingFee parkingFeeAirportBikeTwo = new ParkingFee(VehicleType.BIKE, AirportBikeFeeTwo, AirportBikeMININTTWO, AirportBikeMAXINTTWO);
-        bikeInAirportParkingFee.add(parkingFeeAirportBikeTwo);
-
-        Integer AirportBikeFeeThree = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_THREE_PRICE"));
-        Integer AirportBikeMININTThree = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_THREE_PRICE.MIN_INTERVAL"));
-        Integer AirportBikeMAXINTThree = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_THREE_PRICE.MAX_INTERVAL"));
-        ParkingFee parkingFeeAirportBikeThree = new ParkingFee(VehicleType.BIKE, AirportBikeFeeThree, AirportBikeMININTThree, AirportBikeMAXINTThree);
-        bikeInAirportParkingFee.add(parkingFeeAirportBikeThree);
-
-        Integer AirportBikeFeePerDay = Integer.valueOf(p.getProperty("AIRPORT.BIKE.INTERVAL_PER_DAY"));
-        ParkingFee parkingFeeAirportBikePerDay = new ParkingFee(VehicleType.BIKE, AirportBikeFeePerDay, null, null);
-        bikeInAirportParkingFee.add(parkingFeeAirportBikePerDay);
-        return bikeInAirportParkingFee;
-    }
-
-    public List<ParkingFee> CarInStadiumFee() {
-        List<ParkingFee> carInStadiumParkingFee = new ArrayList<>();
-        Integer StadiumCarFeeONE = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_ONE_PRICE"));
-        Integer StadiumCarMININTONE = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_ONE_PRICE.MIN_INTERVAL"));
-        Integer StadiumCarMAXINTONE = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_ONE_PRICE.MAX_INTERVAL"));
-        ParkingFee parkingFeeStadiumCarOne = new ParkingFee(VehicleType.CAR, StadiumCarFeeONE, StadiumCarMININTONE, StadiumCarMAXINTONE);
-        carInStadiumParkingFee.add(parkingFeeStadiumCarOne);
-
-        Integer StadiumCarFeeTwo = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_TWO_PRICE"));
-        Integer StadiumCarMININTTWO = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_TWO_PRICE.MIN_INTERVAL"));
-        Integer StadiumCarMAXINTTWO = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_TWO_PRICE.MAX_INTERVAL"));
-        ParkingFee parkingFeeStadiumCarTwo = new ParkingFee(VehicleType.CAR, StadiumCarFeeTwo, StadiumCarMININTTWO, StadiumCarMAXINTTWO);
-        carInStadiumParkingFee.add(parkingFeeStadiumCarTwo);
-
-        Integer StadiumCarFeeThree = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_THREE_PRICE"));
-        Integer StadiumCarMININTThree = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_THREE_PRICE.MIN_INTERVAL"));
-        Integer StadiumCarMAXINTThree = Integer.valueOf(p.getProperty("STADIUM.CAR.INTERVAL_THREE_PRICE.MAX_INTERVAL"));
-        ParkingFee parkingFeeStadiumCarThree = new ParkingFee(VehicleType.CAR, StadiumCarFeeThree, StadiumCarMININTThree, StadiumCarMAXINTThree);
-        carInStadiumParkingFee.add(parkingFeeStadiumCarThree);
-        return carInStadiumParkingFee;
-    }
-
-    public List<ParkingFee> BikeInStadiumFee() {
-        List<ParkingFee> bikeInStadiumParkingFeeList = new ArrayList<>();
-        Integer StadiumBikeFeeONE = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_ONE_PRICE"));
-        Integer StadiumBikeMININTONE = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_ONE_PRICE.MIN_INTERVAL"));
-        Integer StadiumBikeMAXINTONE = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_ONE_PRICE.MAX_INTERVAL"));
-        ParkingFee parkingFeeStadiumBikeOne = new ParkingFee(VehicleType.BIKE, StadiumBikeFeeONE, StadiumBikeMININTONE, StadiumBikeMAXINTONE);
-        bikeInStadiumParkingFeeList.add(parkingFeeStadiumBikeOne);
-
-        Integer StadiumBikeFeeTwo = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_TWO_PRICE"));
-        Integer StadiumBikeMININTTWO = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_TWO_PRICE.MIN_INTERVAL"));
-        Integer StadiumBikeMAXINTTWO = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_TWO_PRICE.MAX_INTERVAL"));
-        ParkingFee parkingFeeStadiumBikeTwo = new ParkingFee(VehicleType.BIKE, StadiumBikeFeeTwo, StadiumBikeMININTTWO, StadiumBikeMAXINTTWO);
-        bikeInStadiumParkingFeeList.add(parkingFeeStadiumBikeTwo);
-
-        Integer StadiumBikeFeeThree = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_THREE_PRICE"));
-        Integer StadiumBikeMININTThree = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_THREE_PRICE.MIN_INTERVAL"));
-        Integer StadiumBikeMAXINTThree = Integer.valueOf(p.getProperty("STADIUM.BIKE.INTERVAL_THREE_PRICE.MAX_INTERVAL"));
-        ParkingFee parkingFeeStadiumBikeThree = new ParkingFee(VehicleType.BIKE, StadiumBikeFeeThree, StadiumBikeMININTThree, StadiumBikeMAXINTThree);
-        bikeInStadiumParkingFeeList.add(parkingFeeStadiumBikeThree);
-        return bikeInStadiumParkingFeeList;
-    }
 }

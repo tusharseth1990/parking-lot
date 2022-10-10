@@ -1,14 +1,13 @@
 package DTO;
 
+import Config.FeeModel;
 import enums.ParkingLocation;
 import enums.VehicleType;
 import lombok.Data;
 import util.ParkingLotUtils;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.Properties;
+
 
 /**
  * ParkingReceipt DTO/Model class
@@ -19,8 +18,6 @@ public class ParkingReceipt {
     private ParkingTicket parkingTicket;
     private Timestamp exitDateTime;
     private Double fees;
-    Properties p = new Properties();
-    FileReader reader = new FileReader("feemodels.properties");
 
     @Override
     public String toString() {
@@ -30,11 +27,6 @@ public class ParkingReceipt {
                 ", Exit Date-time: " + exitDateTime +
                 ", fees: " + fees +
                 '}';
-    }
-
-
-    public ParkingReceipt() throws IOException {
-        p.load(reader);
     }
 
     public Double calcParkingFees(ParkingTicket parkingTicket) {
@@ -48,46 +40,44 @@ public class ParkingReceipt {
 //MALL
         if (parkingLocation.equals(ParkingLocation.MALL)) {
             if (vehicleType.equals(VehicleType.BIKE)) {
-                return Math.ceil(differenceInHour) * Integer.parseInt(p.getProperty("MALL.BIKE"));
+                return Math.ceil(differenceInHour) * FeeModel.MallBikeFee;
             }
 
             if (vehicleType.equals(VehicleType.CAR)) {
-                return Math.ceil(differenceInHour) * Integer.parseInt(p.getProperty("MALL.CAR"));
+                return Math.ceil(differenceInHour) * FeeModel.MallCarFee;
             }
 
             if (vehicleType.equals(VehicleType.TRUCK)) {
-                return Math.ceil(differenceInHour) * Integer.parseInt(p.getProperty("MALL.TRUCK"));
+                return Math.ceil(differenceInHour) * FeeModel.MallTruckFee;
             }
-
         }
 
 //STADIUM
-
         if (parkingLocation.equals(ParkingLocation.STADIUM)) {
             if (vehicleType.equals(VehicleType.BIKE)) {
-                if (Integer.parseInt(p.getProperty("STADIUM.BIKE.INTERVAL_ONE_PRICE.MIN_INTERVAL")) <= differenceInHour && differenceInHour < Integer.parseInt(p.getProperty("STADIUM.BIKE.INTERVAL_ONE_PRICE.MAX_INTERVAL"))) {
-                    amount = Integer.parseInt(p.getProperty("STADIUM.BIKE.INTERVAL_ONE_PRICE"));
+                if (FeeModel.StadiumBikeFeeONE <= differenceInHour && differenceInHour < FeeModel.StadiumBikeMAXINTONE) {
+                    amount = FeeModel.StadiumBikeFeeONE;
                 }
-                if (Integer.parseInt(p.getProperty("STADIUM.BIKE.INTERVAL_TWO_PRICE.MIN_INTERVAL")) <= differenceInHour && differenceInHour < Integer.parseInt(p.getProperty("STADIUM.BIKE.INTERVAL_TWO_PRICE.MAX_INTERVAL"))) {
-                    amount = Integer.parseInt(p.getProperty("STADIUM.BIKE.INTERVAL_ONE_PRICE")) + Integer.parseInt(p.getProperty("STADIUM.BIKE.INTERVAL_TWO_PRICE"));
+                if (FeeModel.StadiumBikeMININTTWO <= differenceInHour && differenceInHour < FeeModel.StadiumBikeMAXINTTWO) {
+                    amount = FeeModel.StadiumBikeFeeONE + FeeModel.StadiumBikeFeeTwo;
                 }
-                if (Integer.parseInt(p.getProperty("STADIUM.BIKE.INTERVAL_THREE_PRICE.MIN_INTERVAL")) <= differenceInHour) {
-                    amount += Integer.parseInt(p.getProperty("STADIUM.BIKE.INTERVAL_ONE_PRICE")) + Integer.parseInt(p.getProperty("STADIUM.BIKE.INTERVAL_TWO_PRICE")) +
-                            Integer.parseInt(p.getProperty("STADIUM.BIKE.INTERVAL_THREE_PRICE")) * Math.ceil(differenceInHour - Integer.parseInt(p.getProperty("STADIUM.BIKE.INTERVAL_TWO_PRICE.MAX_INTERVAL")));
+                if (FeeModel.StadiumBikeMININTThree <= differenceInHour) {
+                    amount += FeeModel.StadiumBikeFeeONE + FeeModel.StadiumBikeFeeTwo +
+                            FeeModel.StadiumBikeFeeThree * Math.ceil(differenceInHour - FeeModel.StadiumBikeMAXINTTWO);
                 }
                 return amount;
             }
             if (vehicleType.equals(VehicleType.CAR)) {
-                if (Integer.parseInt(p.getProperty("STADIUM.CAR.INTERVAL_ONE_PRICE.MIN_INTERVAL ")) <= differenceInHour && differenceInHour < Integer.parseInt(p.getProperty("STADIUM.CAR.INTERVAL_ONE_PRICE.MAX_INTERVAL"))) {
-                    amount = Integer.parseInt(p.getProperty("STADIUM.CAR.INTERVAL_ONE_PRICE"));
+                if (FeeModel.StadiumCarMININTONE <= differenceInHour && differenceInHour < FeeModel.StadiumCarMAXINTONE) {
+                    amount = FeeModel.StadiumCarFeeONE;
                 }
-                if (Integer.parseInt(p.getProperty("STADIUM.CAR.INTERVAL_TWO_PRICE.MIN_INTERVAL")) <= differenceInHour && differenceInHour < Integer.parseInt(p.getProperty("STADIUM.CAR.INTERVAL_TWO_PRICE.MAX_INTERVAL"))) {
-                    amount = Integer.parseInt(p.getProperty("STADIUM.CAR.INTERVAL_ONE_PRICE")) + Integer.parseInt(p.getProperty("STADIUM.CAR.INTERVAL_TWO_PRICE"));
+                if (FeeModel.StadiumCarMININTTWO <= differenceInHour && differenceInHour < FeeModel.StadiumCarMAXINTTWO) {
+                    amount = FeeModel.StadiumCarFeeONE + FeeModel.StadiumCarFeeTwo;
 
                 }
-                if (Integer.parseInt(p.getProperty("STADIUM.CAR.INTERVAL_THREE_PRICE.MIN_INTERVAL")) <= differenceInHour) {
-                    amount += Integer.parseInt(p.getProperty("STADIUM.CAR.INTERVAL_ONE_PRICE")) + Integer.parseInt(p.getProperty("STADIUM.CAR.INTERVAL_TWO_PRICE")) +
-                            Integer.parseInt(p.getProperty("STADIUM.CAR.INTERVAL_THREE_PRICE")) * Math.ceil(differenceInHour - Integer.parseInt(p.getProperty("STADIUM.CAR.INTERVAL_TWO_PRICE.MAX_INTERVAL")));
+                if (FeeModel.StadiumCarMININTThree <= differenceInHour) {
+                    amount += FeeModel.StadiumCarFeeONE + FeeModel.StadiumCarFeeTwo +
+                            FeeModel.StadiumBikeFeeThree * Math.ceil(differenceInHour - FeeModel.StadiumCarMAXINTTWO);
                 }
                 return amount;
             }
@@ -96,35 +86,35 @@ public class ParkingReceipt {
 //AIRPORT
         if (parkingLocation.equals(ParkingLocation.AIRPORT)) {
             if (vehicleType.equals(VehicleType.BIKE)) {
-                if (Integer.parseInt(p.getProperty("AIRPORT.BIKE.INTERVAL_ONE_PRICE.MIN_INTERVAL")) <= differenceInHour && differenceInHour < Integer.parseInt(p.getProperty("AIRPORT.BIKE.INTERVAL_ONE_PRICE.MAX_INTERVAL"))) {
-                    amount = Integer.parseInt(p.getProperty("AIRPORT.BIKE.INTERVAL_ONE_PRICE"));
+                if (FeeModel.AirportBikeMININTONE <= differenceInHour && differenceInHour < FeeModel.AirportBikeMAXINTONE) {
+                    amount = FeeModel.AirportBikeFeeONE;
                     return amount;
                 }
-                if (Integer.parseInt(p.getProperty("AIRPORT.BIKE.INTERVAL_TWO_PRICE.MIN_INTERVAL")) <= differenceInHour && differenceInHour < Integer.parseInt(p.getProperty("AIRPORT.BIKE.INTERVAL_TWO_PRICE.MAX_INTERVAL"))) {
-                    amount = Integer.parseInt(p.getProperty("AIRPORT.BIKE.INTERVAL_TWO_PRICE"));
+                if (FeeModel.AirportBikeMININTTWO <= differenceInHour && differenceInHour < FeeModel.AirportBikeMAXINTTWO) {
+                    amount = FeeModel.AirportBikeFeeTwo;
                     return amount;
                 }
-                if (Integer.parseInt(p.getProperty("AIRPORT.BIKE.INTERVAL_THREE_PRICE.MIN_INTERVAL")) <= differenceInHour && differenceInHour < Integer.parseInt(p.getProperty("AIRPORT.BIKE.INTERVAL_THREE_PRICE.MAX_INTERVAL"))) {
-                    amount = Integer.parseInt(p.getProperty("AIRPORT.BIKE.INTERVAL_THREE_PRICE"));
+                if (FeeModel.AirportBikeMININTThree <= differenceInHour && differenceInHour < FeeModel.AirportBikeMAXINTThree) {
+                    amount = FeeModel.AirportBikeFeeThree;
                     return amount;
                 }
-                if (differenceInHour >= Integer.parseInt(p.getProperty("AIRPORT.BIKE.INTERVAL_THREE_PRICE.MAX_INTERVAL"))) {
-                    amount = Integer.parseInt(p.getProperty("AIRPORT.BIKE.INTERVAL_PER_DAY")) * Math.ceil(differenceInHour / 24);
+                if (differenceInHour >= FeeModel.AirportBikeMAXINTThree) {
+                    amount = FeeModel.AirportBikeFeePerDay * Math.ceil(differenceInHour / 24);
                     return amount;
                 }
 
             }
 
             if (vehicleType.equals(VehicleType.CAR)) {
-                if (Integer.parseInt(p.getProperty("AIRPORT.CAR.INTERVAL_ONE_PRICE.MIN_INTERVAL ")) <= differenceInHour && differenceInHour < Integer.parseInt(p.getProperty("AIRPORT.CAR.INTERVAL_ONE_PRICE.MAX_INTERVAL"))) {
-                    amount = Integer.parseInt(p.getProperty("AIRPORT.CAR.INTERVAL_ONE_PRICE"));
+                if (FeeModel.AirportCarMININTONE <= differenceInHour && differenceInHour < FeeModel.AirportCarMAXINTONE) {
+                    amount = FeeModel.AirportCarFeeONE;
                 }
-                if (Integer.parseInt(p.getProperty("AIRPORT.CAR.INTERVAL_TWO_PRICE.MIN_INTERVAL")) <= differenceInHour && differenceInHour < Integer.parseInt(p.getProperty("AIRPORT.CAR.INTERVAL_TWO_PRICE.MAX_INTERVAL"))) {
-                    amount = Integer.parseInt(p.getProperty("AIRPORT.CAR.INTERVAL_TWO_PRICE"));
+                if (FeeModel.AirportCarMININTTWO <= differenceInHour && differenceInHour < FeeModel.AirportCarMAXINTTWO) {
+                    amount = FeeModel.AirportCarFeeTwo;
 
                 }
-                if (differenceInHour >= Integer.parseInt(p.getProperty("AIRPORT.CAR.INTERVAL_TWO_PRICE.MAX_INTERVAL"))) {
-                    amount = Integer.parseInt(p.getProperty("AIRPORT.CAR.INTERVAL_PER_DAY")) * Math.ceil(differenceInHour / 24);
+                if (differenceInHour >= FeeModel.AirportCarMAXINTTWO) {
+                    amount = FeeModel.AirportCarFeePerDay * Math.ceil(differenceInHour / 24);
                 }
                 return amount;
             }
