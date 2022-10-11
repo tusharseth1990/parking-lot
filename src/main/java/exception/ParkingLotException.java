@@ -11,45 +11,33 @@ import lombok.ToString;
 public class ParkingLotException extends RuntimeException{
     final String code;
     final String displayMessage;
-    final int httpStatus;
-    final String shortCode;
 
-    public ParkingLotException(String code, String displayMessage, int httpStatus, String shortCode) {
+    public ParkingLotException(String code, String displayMessage) {
         this.code = code;
         this.displayMessage = displayMessage;
-        this.httpStatus = httpStatus;
-        this.shortCode = shortCode;
     }
 
-    public ParkingLotException(String message, String code, String displayMessage, int httpStatus, String shortCode) {
+    public ParkingLotException(String message, String code, String displayMessage) {
         super(message);
         this.code = code;
         this.displayMessage = displayMessage;
-        this.httpStatus = httpStatus;
-        this.shortCode = shortCode;
     }
 
-    public ParkingLotException(String message, Throwable cause, String code, String displayMessage, int httpStatus, String shortCode) {
+    public ParkingLotException(String message, Throwable cause, String code, String displayMessage) {
         super(message, cause);
         this.code = code;
         this.displayMessage = displayMessage;
-        this.httpStatus = httpStatus;
-        this.shortCode = shortCode;
     }
 
-    public ParkingLotException(Throwable cause, String code, String displayMessage, int httpStatus, String shortCode) {
+    public ParkingLotException(Throwable cause, String code, String displayMessage) {
         super(cause);
         this.code = code;
         this.displayMessage = displayMessage;
-        this.httpStatus = httpStatus;
-        this.shortCode = shortCode;
     }
 
-    public ParkingLotException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, String code, String displayMessage, int httpStatus, String shortCode) {
+    public ParkingLotException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, String code, String displayMessage) {
         super(message, cause, enableSuppression, writableStackTrace);
         this.code = code;
         this.displayMessage = displayMessage;
-        this.httpStatus = httpStatus;
-        this.shortCode = shortCode;
     }
 }
