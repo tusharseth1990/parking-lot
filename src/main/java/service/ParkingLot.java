@@ -86,7 +86,7 @@ public class ParkingLot {
         }
 
         if (vehicleType.equals(VehicleType.TRUCK)) {
-            for (boolean b : parkedSpotsCar) {
+            for (boolean b : parkedSpotsTruck) {
                 if (!b)
                     return true;
             }
