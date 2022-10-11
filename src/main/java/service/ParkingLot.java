@@ -7,8 +7,8 @@ import DTO.ParkingTicket;
 import DTO.Vehicle;
 import enums.ParkingLocation;
 import enums.VehicleType;
-
-import java.io.IOException;
+import exception.ParkingLotCodes;
+import exception.ParkingLotException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +43,9 @@ public class ParkingLot {
         //if spot available for particular vehicle type then
         //assign parking spot &
         //give a parking ticket
+        if(vehicle == null || parkingLocation == null){
+            throw new ParkingLotException(ParkingLotCodes.PARKING_VEHICLE_LOCATION.name(), ParkingLotCodes.PARKING_VEHICLE_LOCATION.getMessageFormat());
+        }
         ParkingTicket parkingTicket = null;
         Boolean available = checkParkingSpotAvailability(vehicle.getVehicleType());
         if (available) {
@@ -56,6 +59,7 @@ public class ParkingLot {
     }
 
     private ParkingTicket getParkingTicket(Vehicle vehicle, boolean[] parkedSpots, ParkingLocation parkingLocation) {
+
         ParkingTicket parkingTicket = null;
         for (int i = 0; i < parkedSpots.length; i++) {
             if (parkedSpots[i] == Boolean.FALSE) {
@@ -91,7 +95,8 @@ public class ParkingLot {
                     return true;
             }
         }
-        return false;
+
+       throw new ParkingLotException(ParkingLotCodes.PARKING_SPOT_FULL.name(),ParkingLotCodes.PARKING_SPOT_FULL.getMessageFormat());
     }
 
     /**
@@ -100,7 +105,10 @@ public class ParkingLot {
      * @param parkingTicket parkingTicket details
      * @return ParkingReceipt parking Receipt Details
      */
-    public ParkingReceipt unParkVehicle(ParkingTicket parkingTicket) throws IOException {
+    public ParkingReceipt unParkVehicle(ParkingTicket parkingTicket)  {
+        if(parkingTicket == null){
+            throw new ParkingLotException(ParkingLotCodes.PARKING_TICKET_INVALID.name(), ParkingLotCodes.PARKING_TICKET_INVALID.getMessageFormat());
+        }
         //leave the parking slot
         parkingSpots.remove(parkingTicket.getParkingSpot());
         VehicleType vehicleType = parkingTicket.getParkingSpot().getVehicleType();

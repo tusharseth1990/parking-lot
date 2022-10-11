@@ -17,27 +17,4 @@ public class ParkingLotException extends RuntimeException{
         this.displayMessage = displayMessage;
     }
 
-    public ParkingLotException(String message, String code, String displayMessage) {
-        super(message);
-        this.code = code;
-        this.displayMessage = displayMessage;
-    }
-
-    public ParkingLotException(String message, Throwable cause, String code, String displayMessage) {
-        super(message, cause);
-        this.code = code;
-        this.displayMessage = displayMessage;
-    }
-
-    public ParkingLotException(Throwable cause, String code, String displayMessage) {
-        super(cause);
-        this.code = code;
-        this.displayMessage = displayMessage;
-    }
-
-    public ParkingLotException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, String code, String displayMessage) {
-        super(message, cause, enableSuppression, writableStackTrace);
-        this.code = code;
-        this.displayMessage = displayMessage;
-    }
 }
