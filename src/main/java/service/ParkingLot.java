@@ -109,7 +109,6 @@ public class ParkingLot {
             case CAR -> parkedSpotsCar[parkingTicket.getParkingSpot().getSpotId()] = false;
             case TRUCK -> parkedSpotsTruck[parkingTicket.getParkingSpot().getSpotId()] = false;
         }
-
         // Calculate fees
         ParkingReceipt parkingReceipt = new ParkingReceipt();
         Double fees = parkingReceipt.calcParkingFees(parkingTicket);

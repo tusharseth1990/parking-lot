@@ -1,6 +1,8 @@
 package Config;
 
 
+import constant.ParkingLotConstants;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,7 +21,7 @@ public  class VehicleCapacity {
         Properties p = new Properties();
         FileReader reader = null;
         try {
-            reader = new FileReader("src/main/resources/vehiclecapacity.properties");
+            reader = new FileReader(ParkingLotConstants.VEHICLECAPACITY_PROPERTIES);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
