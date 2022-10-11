@@ -43,7 +43,7 @@ public class ParkingLot {
         //if spot available for particular vehicle type then
         //assign parking spot &
         //give a parking ticket
-        if(vehicle == null || parkingLocation == null){
+        if(vehicle.getVehicleType() == null || parkingLocation == null){
             throw new ParkingLotException(ParkingLotCodes.PARKING_VEHICLE_LOCATION.name(), ParkingLotCodes.PARKING_VEHICLE_LOCATION.getMessageFormat());
         }
         ParkingTicket parkingTicket = null;
