@@ -14,3 +14,4 @@ Things I could have done/improved in this project
 - Config classes can be optimised if we were using the @value spring framework.
 - Segregate FeeModel class into 3 classes For each Parking Location.
 - Reduce the size of calcParkingFees by diving into 3 methods of Parking Location wise.
+- To simplify more this project can be done without Gradle but since I needed it for JUnit dependency so also used Lombok which anyways makes DTO more readable.
