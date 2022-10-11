@@ -23,7 +23,7 @@ public class ParkingLotTest {
         ParkingTicket parkingTicket1 = parkingLot1.parkVehicle(vehicle1, ParkingLocation.MALL);
         assertEquals(ParkingLocation.MALL, parkingTicket1.getParkingLocation());
         assertEquals(VehicleType.CAR,parkingTicket1.getParkingSpot().getVehicleType());
-        assertTrue(parkingTicket1.getParkingSpot().getSpotId()!=null);
+        assertNotNull(parkingTicket1.getParkingSpot().getSpotId());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class ParkingLotTest {
         ParkingTicket parkingTicket1 = parkingLot1.parkVehicle(vehicle1, ParkingLocation.STADIUM);
         assertEquals(ParkingLocation.STADIUM, parkingTicket1.getParkingLocation());
         assertEquals(VehicleType.BIKE,parkingTicket1.getParkingSpot().getVehicleType());
-        assertTrue(parkingTicket1.getParkingSpot().getSpotId()!=null);
+        assertNotNull(parkingTicket1.getParkingSpot().getSpotId());
 
     }
 
