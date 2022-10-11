@@ -6,9 +6,9 @@ package util;
 public class ParkingLotUtils {
     /**
      * Basically used for Comparing two timestamps
-     * @param currentTime
-     * @param oldTime
-     * @return
+     * @param currentTime current timestamp
+     * @param oldTime old timestamp
+     * @return return double value of time difference
      */
     public static double compareTwoTimeStamps(java.sql.Timestamp currentTime, java.sql.Timestamp oldTime)
     {

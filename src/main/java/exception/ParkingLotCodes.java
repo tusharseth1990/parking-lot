@@ -1,5 +1,7 @@
 package exception;
-
+/**
+ * ParkingLotCodes: enum for exception class
+ */
 public enum ParkingLotCodes {
     PARKING_SPOT_FULL("Parking spot is already full"),
     PARKING_VEHICLE_LOCATION("Parking vehicle or location is invalid"),
